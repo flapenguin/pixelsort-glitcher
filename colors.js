@@ -14,15 +14,6 @@ const Colors = {
   green(uint32) { return Colors.rgb(uint32).g; },
   blue(uint32) { return Colors.rgb(uint32).b; },
   grey(uint32) { return Colors.rgb(uint32).valueOf() },
-
-  sort: {
-    byBrigtness(a, b) {
-      return Colors.brightness(a) < Colors.brightness(b);
-    },
-    byRed(a, b) {
-      return Colors.rgb(a).r < Colors.rgb(b).r;
-    }
-  }
 };
 
 module.exports = Colors;
