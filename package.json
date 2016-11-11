@@ -1,18 +1,19 @@
 {
-	"name": "glitch-pixelsort",
-	"version": "0.0.1",
-	"description": "glitching images by http",
-	"main": "server.js",
-	"scripts": {
-		"start": "node --harmony server.js"
-	},
-	"dependencies": {
-		"express": "^4.12.4",
-		"jimp": "^0.2.27",
-		"multer": "^1.2.0"
-	},
-	"engines": {
-		"node": "6.9.1"
-	},
-	"license": "MIT"
+  "name": "glitch-pixelsort",
+  "version": "0.0.1",
+  "description": "glitching images by http",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --harmony server.js"
+  },
+  "dependencies": {
+    "express": "^4.12.4",
+    "jimp": "^0.2.27",
+    "minimist": "^1.2.0",
+    "multer": "^1.2.0"
+  },
+  "engines": {
+    "node": "6.9.1"
+  },
+  "license": "MIT"
 }

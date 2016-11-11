@@ -29,6 +29,10 @@
       <input type="checkbox" name="invert">
       Invert
     </label>
+    <label>
+      <input type="checkbox" name="consequent-rows">
+      Consequent rows
+    </label>
     <br>
     Method:
     <label><input type="radio" name="method" value="red">Red</label>
@@ -39,7 +43,7 @@
     <input type="submit" value="Glitch">
   </form>
   <h2>Useless details:</h2>
-  <p>Sequences of pixel with greater (or lesser, depends on invert checkbox) reg/green/blue/grey than specified treshold will be glitched.</p>
+  <p>Sequences of pixel with greater (or lesser, depends on invert checkbox) reg/green/blue/grey than specified treshold will be glitched. Consequent rows means sequence can start on one row and end on another.</p>
   <p>I dunno what optimal parameters are. If you're running it on hyperdev you may notice it's slow, well it should be on hyperdev.</p>
 </body>
 </html>
