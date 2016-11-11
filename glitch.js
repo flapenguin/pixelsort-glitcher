@@ -1,31 +1,40 @@
-const {arrayBufferToBuffer} = require('./utils');
+const {arrayBufferToBuffer, findIndexEx} = require('./utils');
 
 module.exports = function(jimpImg, {
   startPredicate,
   endPredicate,
   sortBy,
   consequentRows,
-  minimalSequence
+  minimalSequence,
+  columns
 }) {
   const comparator = (a, b) => sortBy(a) < sortBy(b);
-  const {data, width, height} = jimpImg.bitmap;
 
-  const bytes = new Uint8Array(data);
-  const pixels = new Uint32Array(bytes.buffer);
+  glitchRows(jimpImg, consequentRows);
 
-  if (consequentRows) {
-    glitchRow(pixels);
-  } else {
-    glitchRows(pixels, width, height);
+  if (columns) {
+    jimpImg.rotate(90);
+    glitchRows(jimpImg, consequentRows);
+    jimpImg.rotate(-90);
   }
 
-  arrayBufferToBuffer(bytes.buffer).copy(data);
+  function glitchRows(jimpImg, consequentRows) {
+    const {data, width, height} = jimpImg.bitmap;
 
-  function glitchRows(pixels, width, height) {
+    const bytes = new Uint8Array(data);
+    const pixels = new Uint32Array(bytes.buffer);
+
+    if (consequentRows) {
+      glitchRow(pixels);
+      return;
+    }
+
     for (let y = 0; y < height; y++) {
       const row = new Uint32Array(pixels.buffer, y*width*4, width);
       glitchRow(row);
     }
+
+    arrayBufferToBuffer(bytes.buffer).copy(data);
   }
 
   function glitchRow(row) {
@@ -46,15 +55,5 @@ module.exports = function(jimpImg, {
         arr.sort(comparator);
       }
     }
-  }
-
-  function findIndexEx(arr, predicate, startIx) {
-    for (let i = startIx; i < arr.length; i++) {
-      if (predicate(arr[i])) {
-        return i;
-      }
-    }
-
-    return -1;
   }
 };

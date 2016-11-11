@@ -13,3 +13,13 @@ module.exports.arrayBufferToBuffer = function(arrayBuffer) {
 
   return buf;
 };
+
+module.exports.findIndexEx = function(arr, predicate, startIx) {
+  for (let i = startIx; i < arr.length; i++) {
+    if (predicate(arr[i])) {
+      return i;
+    }
+  }
+
+  return -1;
+}

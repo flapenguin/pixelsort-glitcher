@@ -9,7 +9,8 @@ module.exports = function(input, {
   treshold,
   invert,
   consequentRows,
-  minimalSequence
+  minimalSequence,
+  columns
 }) {
   const findBy = Colors[method];
   const predicates = [x => findBy(x) > treshold, x => findBy(x) < treshold];
@@ -25,11 +26,12 @@ module.exports = function(input, {
         : `${img.bitmap.width}x${img.bitmap.height}`;
 
       glitch(img, {
+        sortBy: findBy,
         startPredicate,
         endPredicate,
-        sortBy: findBy,
-        consequentRows: consequentRows,
-        minimalSequence: minimalSequence
+        consequentRows,
+        minimalSequence,
+        columns
       });
 
       console.log(`Glitched ${filename} in ${Date.now() - start}ms`);
