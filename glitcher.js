@@ -4,11 +4,14 @@ const {promisify} = require('./utils');
 const Colors = require('./colors');
 const glitch = require('./glitch');
 
-module.exports = function(input, config) {
-  const findBy = Colors[config.method];
-  const treshold = parseInt(config.treshold, 10);
-  const invert = config.invert;
-
+module.exports = function(input, {
+  method,
+  treshold,
+  invert,
+  consequentRows,
+  minimalSequence
+}) {
+  const findBy = Colors[method];
   const predicates = [x => findBy(x) > treshold, x => findBy(x) < treshold];
   if (invert) { predicates.reverse(); }
 
@@ -25,7 +28,8 @@ module.exports = function(input, config) {
         startPredicate,
         endPredicate,
         sortBy: findBy,
-        consequentRows: config.consequentRows
+        consequentRows: consequentRows,
+        minimalSequence: minimalSequence
       });
 
       console.log(`Glitched ${filename} in ${Date.now() - start}ms`);

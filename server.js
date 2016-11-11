@@ -17,7 +17,8 @@ app.post('/', upload.single('image'), (req, res) => {
     method: req.body.method || 'grey',
     treshold: parseInt(req.body.treshold, 10) || 65,
     invert: req.body.invert === 'on',
-    consequentRows: req.body['consequent-rows'] === 'on'
+    consequentRows: req.body['consequent-rows'] === 'on',
+    minimalSequence: parseInt(req.body['minimal-sequence'], 10) || 0
   })
     .then(img => promisify(cb => img.getBuffer(resultType, cb)))
     .then(buffer => {

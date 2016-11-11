@@ -1,6 +1,12 @@
 const {arrayBufferToBuffer} = require('./utils');
 
-module.exports = function(jimpImg, { startPredicate, endPredicate, sortBy, consequentRows }) {
+module.exports = function(jimpImg, {
+  startPredicate,
+  endPredicate,
+  sortBy,
+  consequentRows,
+  minimalSequence
+}) {
   const comparator = (a, b) => sortBy(a) < sortBy(b);
   const {data, width, height} = jimpImg.bitmap;
 
@@ -35,8 +41,10 @@ module.exports = function(jimpImg, { startPredicate, endPredicate, sortBy, conse
         end = row.length - 1;
       }
 
-      const arr = new Uint32Array(row.buffer, row.byteOffset + start*4, end - start);
-      arr.sort(comparator);
+      if (end - start > minimalSequence) {
+        const arr = new Uint32Array(row.buffer, row.byteOffset + start*4, end - start);
+        arr.sort(comparator);
+      }
     }
   }
 
